@@ -1,0 +1,100 @@
+<div class="container">
+  <div class="col-md-8 col-lg-6 col-xxl-5 mx-auto">
+    <div class="profile-card">
+      <h3 class="text-center mb-2">User Profile</h3>
+
+      <div
+        *ngIf="!!successMessage"
+        class="alert alert-success d-flex align-items-center mb-2"
+        role="alert"
+      >
+        {{ successMessage }}
+      </div>
+
+      <form [formGroup]="profileForm" (submit)="updateUser()">
+        <div class="mb-3">
+          <label for="emailInput" class="form-label">Email address</label>
+          <input
+            type="email"
+            name="email"
+            id="emailInput"
+            class="form-control form-control-lg"
+            disabled="disabled"
+            [value]="storedUser?.email"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="nameInput" class="form-label">Name</label>
+          <input
+            type="text"
+            name="name"
+            id="nameInput"
+            class="form-control form-control-lg"
+            [class.is-valid]="!name?.invalid && (name?.dirty || name?.touched)"
+            [class.is-invalid]="name?.invalid && (name?.dirty || name?.touched)"
+            formControlName="name"
+          />
+          <div class="invalid-feedback" *ngIf="name?.errors?.['required']">
+            Name is required.
+          </div>
+          <div class="invalid-feedback" *ngIf="name?.errors?.['minlength']">
+            Name must be at least 3 characters long.
+          </div>
+          <div class="invalid-feedback" *ngIf="name?.errors?.['maxlength']">
+            Name must be at most 40 characters long.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="surnameInput" class="form-label">Surname</label>
+          <input
+            type="text"
+            name="surname"
+            id="surnameInput"
+            class="form-control form-control-lg"
+            [class.is-valid]="
+              !surname?.invalid && (surname?.dirty || surname?.touched)
+            "
+            [class.is-invalid]="
+              surname?.invalid && (surname?.dirty || surname?.touched)
+            "
+            formControlName="surname"
+          />
+          <div class="invalid-feedback" *ngIf="surname?.errors?.['required']">
+            Surname is required.
+          </div>
+          <div class="invalid-feedback" *ngIf="surname?.errors?.['minlength']">
+            Surname must be at least 3 characters long.
+          </div>
+          <div class="invalid-feedback" *ngIf="surname?.errors?.['maxlength']">
+            Surname must be at most 40 characters long.
+          </div>
+        </div>
+
+        <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+
+        <div class="d-grid">
+          <button
+            type="submit"
+            [disabled]="
+              !profileForm.valid ||
+              (name?.value === storedUser?.name &&
+                surname?.value === storedUser?.surname)
+            "
+            class="btn btn-primary btn-lg"
+          >
+            Update data
+          </button>
+        </div>
+        <div class="d-grid mt-2">
+          <button class="btn btn-danger btn-lg" (click)="deleteUser()">
+            Delete user
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

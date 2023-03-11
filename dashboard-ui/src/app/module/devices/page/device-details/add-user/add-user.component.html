@@ -1,0 +1,45 @@
+<ng-container *ngIf="errorMessage">
+  <div class="row mt-2">
+    <div class="col">
+      <div class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="addUserForm" (ngSubmit)="addDeviceUser()">
+      <div class="row">
+        <div class="col-3">
+          <div class="">
+            <input
+              type="email"
+              name="email"
+              id="emailInput"
+              formControlName="email"
+              placeholder="Email address"
+              class="form-control form-control-lg"
+              [class.is-valid]="
+                !email?.invalid && (email?.dirty || email?.touched)
+              "
+              [class.is-invalid]="
+                email?.invalid && (email?.dirty || email?.touched)
+              "
+            />
+          </div>
+        </div>
+        <div class="col-9">
+          <button
+            type="submit"
+            [disabled]="!addUserForm.valid"
+            class="btn btn-primary btn-lg"
+          >
+            Add user
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

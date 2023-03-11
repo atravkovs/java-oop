@@ -1,0 +1,20 @@
+@import "./colors";
+@import "~bootstrap-icons/font/bootstrap-icons.scss";
+
+$gray-900: $cr-color-black;
+$enable-responsive-font-sizes: true;
+$font-family-base: "Roboto", sans-serif;
+$headings-font-family: "Raleway", sans-serif;
+$headings-font-weight: 600;
+$blue: $cr-color-active;
+
+$font-size-base: 1rem;
+$h1-font-size: $font-size-base * 3.05 !default;
+$h2-font-size: $font-size-base * 2.44 !default;
+$h3-font-size: $font-size-base * 1.94 !default;
+$h4-font-size: $font-size-base * 1.55 !default;
+$h5-font-size: $font-size-base * 1.25 !default;
+$h6-font-size: $font-size-base !default;
+
+$link-decoration: none;
+$form-label-margin-bottom: 0.2rem;

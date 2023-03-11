@@ -1,0 +1,127 @@
+<div class="container">
+  <div class="col-md-8 col-lg-6 col-xxl-5 mx-auto">
+    <app-auth-card title="Sign Up to Device Host">
+      <form [formGroup]="registrationForm" (ngSubmit)="register()">
+        <div class="mb-3">
+          <label for="nameInput" class="form-label">Name</label>
+          <input
+            type="text"
+            name="name"
+            id="nameInput"
+            class="form-control form-control-lg"
+            [class.is-valid]="!name?.invalid && (name?.dirty || name?.touched)"
+            [class.is-invalid]="name?.invalid && (name?.dirty || name?.touched)"
+            formControlName="name"
+          />
+          <div class="invalid-feedback" *ngIf="name?.errors?.['required']">
+            Name is required.
+          </div>
+          <div class="invalid-feedback" *ngIf="name?.errors?.['minlength']">
+            Name must be at least 3 characters long.
+          </div>
+          <div class="invalid-feedback" *ngIf="name?.errors?.['maxlength']">
+            Name must be at most 40 characters long.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="surnameInput" class="form-label">Surname</label>
+          <input
+            type="text"
+            name="surname"
+            id="surnameInput"
+            class="form-control form-control-lg"
+            [class.is-valid]="
+              !surname?.invalid && (surname?.dirty || surname?.touched)
+            "
+            [class.is-invalid]="
+              surname?.invalid && (surname?.dirty || surname?.touched)
+            "
+            formControlName="surname"
+          />
+          <div class="invalid-feedback" *ngIf="surname?.errors?.['required']">
+            Surname is required.
+          </div>
+          <div class="invalid-feedback" *ngIf="surname?.errors?.['minlength']">
+            Surname must be at least 3 characters long.
+          </div>
+          <div class="invalid-feedback" *ngIf="surname?.errors?.['maxlength']">
+            Surname must be at most 40 characters long.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="emailInput" class="form-label">Email address</label>
+          <input
+            type="email"
+            name="email"
+            id="emailInput"
+            class="form-control form-control-lg"
+            [class.is-valid]="
+              !email?.invalid && (email?.dirty || email?.touched)
+            "
+            [class.is-invalid]="
+              email?.invalid && (email?.dirty || email?.touched)
+            "
+            formControlName="email"
+          />
+
+          <div class="invalid-feedback" *ngIf="email?.errors?.['required']">
+            Email is required.
+          </div>
+          <div class="invalid-feedback" *ngIf="email?.errors?.['email']">
+            Email is of invalid format.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="passInput" class="form-label">Password</label>
+          <input
+            type="password"
+            name="pass"
+            id="passInput"
+            class="form-control form-control-lg"
+            [class.is-valid]="
+              !password?.invalid && (password?.dirty || password?.touched)
+            "
+            [class.is-invalid]="
+              password?.invalid && (password?.dirty || password?.touched)
+            "
+            formControlName="password"
+          />
+          <div class="invalid-feedback" *ngIf="password?.errors?.['required']">
+            Password is required.
+          </div>
+          <div class="invalid-feedback" *ngIf="password?.errors?.['pattern']">
+            Password should contain one small case letter, one upper case letter
+            and digit.
+          </div>
+          <div class="invalid-feedback" *ngIf="password?.errors?.['minlength']">
+            Password must be at least 6 characters long.
+          </div>
+          <div class="invalid-feedback" *ngIf="password?.errors?.['maxlength']">
+            Password must be at most 120 characters long.
+          </div>
+        </div>
+
+        <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+
+        <div class="d-grid">
+          <button
+            type="submit"
+            [disabled]="!registrationForm.valid"
+            class="btn btn-primary btn-lg"
+          >
+            Sign up
+          </button>
+        </div>
+      </form>
+
+      <div class="mt-4">
+        <a routerLink="/login">Sign In</a>
+      </div>
+    </app-auth-card>
+  </div>
+</div>

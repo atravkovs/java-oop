@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col">
+    <h4>Device Users</h4>
+  </div>
+</div>
+
+<app-add-user
+  [deviceCode]="deviceCode"
+  (addUser)="addEmail($event)"
+></app-add-user>
+
+<ng-container *ngIf="emails.length > 0">
+  <div class="mt-3">
+    <app-user-list-by-emails
+      [emails]="emails"
+      (delete)="deleteUser($event)"
+    ></app-user-list-by-emails>
+  </div>
+</ng-container>

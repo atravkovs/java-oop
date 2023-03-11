@@ -1,0 +1,10 @@
+@import '../../../../../assets/styles/colors';
+
+.profile-card {
+  margin-top: 6rem;
+
+  padding: 50px 40px;
+
+  background-color: $cr-color-white;
+  border-top: 5px solid $cr-color-primary;
+}

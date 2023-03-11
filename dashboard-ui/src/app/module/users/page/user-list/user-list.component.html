@@ -1,0 +1,86 @@
+<div class="container pt-5">
+  <div class="row">
+    <div class="col">
+      <h3>User management</h3>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col">
+      <input
+        type="text"
+        name="deviceName"
+        id="deviceNameInput"
+        placeholder="Search query"
+        class="form-control form-control-lg"
+        [(ngModel)]="query.search"
+        (ngModelChange)="onSearch()"
+      />
+    </div>
+  </div>
+
+  <ng-container *ngIf="users$ | async; let users">
+    <div class="row mb-3 mt-3">
+      <div class="col">
+        <strong>Total</strong> {{ users.totalElements }} users
+      </div>
+    </div>
+
+    <div
+      [attr.data-email]="user.email"
+      class="row mb-3"
+      *ngFor="let user of users.content"
+    >
+      <div class="col">
+        <app-card>
+          <div class="d-flex justify-content-between">
+            <div class="d-flex">
+              <div>
+                <i class="bi bi-person-circle"></i>
+              </div>
+              <div class="ms-3 pt-4">
+                <div class="name-font">{{ user.name }} {{ user.surname }}</div>
+                <div class="email-font">
+                  {{ user.email }}
+                </div>
+              </div>
+            </div>
+            <div class="user-role">
+              {{ user.role | titlecase }}
+            </div>
+            <div>
+              <div class="trash-container">
+                <i
+                  (click)="deleteUser(user)"
+                  class="bi bi-trash text-danger"
+                ></i>
+              </div>
+            </div>
+          </div>
+        </app-card>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li
+              class="page-item"
+              [class.active]="query.page === page"
+              [class.click]="query.page !== page"
+              *ngFor="
+                let num of numSequence(users.totalPages);
+                let page = index
+              "
+            >
+              <a class="page-link" (click)="updatePage(page)">{{
+                page + 1
+              }}</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </ng-container>
+</div>

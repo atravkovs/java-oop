@@ -1,0 +1,10 @@
+<canvas
+  *ngIf="data$ | async; let data"
+  height="300px"
+  width="400px"
+  baseChart
+  class="chart"
+  [data]="data"
+  [options]="chartOptions"
+  [type]="'line'"
+></canvas>

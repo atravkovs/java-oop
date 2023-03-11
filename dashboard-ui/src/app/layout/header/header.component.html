@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a href="/" class="logo fs-3 fw-semibold">Device Host</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto ms-3 mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a
+            [routerLink]="['/']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="nav-link"
+            >Home</a
+          >
+        </li>
+        <ng-template [ngIf]="isLoggedIn() && isAdmin()">
+          <li class="nav-item">
+            <a
+              [routerLink]="['/users']"
+              routerLinkActive="active"
+              class="nav-link"
+              >Users</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              [routerLink]="['/devices']"
+              routerLinkActive="active"
+              class="nav-link"
+              >Devices</a
+            >
+          </li>
+        </ng-template>
+        <ng-template [ngIf]="isLoggedIn()">
+          <li class="nav-item">
+            <a
+              [routerLink]="['/profile']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="nav-link"
+            >
+              Profile
+            </a>
+          </li>
+        </ng-template>
+      </ul>
+      <div *ngIf="isLoggedIn()">
+        <a href="#" (click)="logout($event)">Logout</a>
+      </div>
+    </div>
+  </div>
+</nav>

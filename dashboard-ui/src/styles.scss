@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "./assets/styles/colors";
+@import "./assets/styles/bootstrap";
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+html,
+body {
+  font-size: 18px;
+  background-color: $cr-color-light-background-2;
+}
+
+h3 {
+  /* Heading 3 */
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 35px;
+  line-height: 41px;
+  /* identical to box height */
+
+  /* Dark Primary */
+
+  color: #0f2757;
+}

@@ -1,0 +1,13 @@
+@import "../../../assets/styles/colors";
+
+nav {
+  height: 80px;
+  background-color: $cr-color-white;
+  border-bottom: 1px solid $cr-color-light-gray;
+
+  .logo {
+    color: $cr-color-black;
+    line-height: 80px;
+    text-decoration: none;
+  }
+}

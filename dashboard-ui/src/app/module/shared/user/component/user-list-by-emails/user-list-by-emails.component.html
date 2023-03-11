@@ -1,0 +1,52 @@
+<ng-container *ngIf="users$ | async; let users">
+  <div class="row mb-3" *ngFor="let user of users">
+    <div class="col">
+      <app-card>
+        <div class="d-flex justify-content-between">
+          <div class="d-flex">
+            <div>
+              <i class="bi bi-person-circle"></i>
+            </div>
+            <div class="ms-3 pt-4">
+              <div class="name-font">{{ user.name }} {{ user.surname }}</div>
+              <div class="email-font">
+                {{ user.email }}
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="trash-container">
+              <i
+                (click)="deleteUser(user.email)"
+                class="bi bi-trash text-danger"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </app-card>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="missingEmails$ | async; let missingEmails">
+  <div class="row mb-3 missing-email" *ngFor="let email of missingEmails">
+    <div class="col">
+      <div class="alert alert-danger">
+        <div class="d-flex justify-content-between">
+          <div>
+            User with {{ email }} email is missing
+          </div>
+          <div>
+            <div>
+              <i
+                (click)="deleteUser(email)"
+                class="bi bi-trash text-danger"
+              ></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
