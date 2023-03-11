@@ -10,15 +10,6 @@ const routes: Routes = [
     component: Error404Component,
   },
   {
-    path: 'devices',
-    canActivate: [AuthGuard],
-    data: {
-      roles: [UserRole.Admin, UserRole.User],
-    },
-    loadChildren: () =>
-      import('./module/devices/devices.module').then((m) => m.DevicesModule),
-  },
-  {
     path: 'users',
     loadChildren: () =>
       import('./module/users/users.module').then((m) => m.UsersModule),

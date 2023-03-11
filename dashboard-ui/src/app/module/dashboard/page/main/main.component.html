@@ -4,26 +4,4 @@
       <h3>Hello, {{ user.name }} {{ user.surname }}!</h3>
     </div>
   </div>
-
-  <ng-container *ngIf="devices$ | async; let devices">
-    <div class="d-flex mb-3 mt-3 justify-content-between">
-      <div><strong>Total</strong> {{ devices.length }} devices</div>
-    </div>
-
-    <div class="row mb-3" *ngFor="let device of devices">
-      <div class="col">
-        <app-card [active]="true" [routerLink]="['/devices/', device.code]">
-          <div class="d-flex">
-            <div>
-              <i class="bi bi-pc"></i>
-            </div>
-            <div class="ms-3 pt-4">
-              <div class="name-font">{{ device.name }}</div>
-              <div class="secondary-font">Code #{{ device.code }}</div>
-            </div>
-          </div>
-        </app-card>
-      </div>
-    </div>
-  </ng-container>
 </div>
