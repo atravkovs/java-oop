@@ -5,7 +5,7 @@ import { MainComponent } from './page/main/main.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { WrappersModule } from '../shared/wrappers/wrappers.module';
 import { ProfileComponent } from './page/profile/profile.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserModule } from '../shared/user/user.module';
 import { AuthenticationModule } from '../shared/authentication/authentication.module';
 
@@ -31,6 +31,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     TranslateModule,
     WrappersModule,
+    FormsModule,
   ],
 })
 export class DashboardModule {}

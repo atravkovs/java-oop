@@ -4,4 +4,69 @@
       <h3>Hello, {{ user.name }} {{ user.surname }}!</h3>
     </div>
   </div>
+
+
+  <div class="row mt-3">
+    <div class="col">
+      <input
+        type="text"
+        name="deviceName"
+        id="deviceNameInput"
+        placeholder="Search query"
+        class="form-control form-control-lg"
+        [(ngModel)]="query.search"
+        (ngModelChange)="onSearch()"
+      />
+    </div>
+  </div>
+
+  <ng-container *ngIf="companies$ | async; let companies">
+    <div class="row mb-3 mt-3">
+      <div class="col">
+        <strong>Total</strong> {{ companies.totalElements }} companies
+      </div>
+    </div>
+
+    <div
+      class="row mb-3"
+      *ngFor="let company of companies.content"
+    >
+      <div class="col">
+        <app-card>
+          <div class="d-flex justify-content-between">
+            <div class="d-flex">
+              <div>
+                <i class="bi bi-shop"></i>
+              </div>
+              <div class="ms-3 pt-3 pb-1">
+                <div class="name-font">{{ company.name }}</div>
+              </div>
+            </div>
+          </div>
+        </app-card>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li
+              class="page-item"
+              [class.active]="query.page === page"
+              [class.click]="query.page !== page"
+              *ngFor="
+                let num of numSequence(companies.totalPages);
+                let page = index
+              "
+            >
+              <a class="page-link" (click)="updatePage(page)">{{
+                page + 1
+              }}</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </ng-container>
 </div>
