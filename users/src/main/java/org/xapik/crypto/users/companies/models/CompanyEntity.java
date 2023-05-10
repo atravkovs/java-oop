@@ -1,12 +1,11 @@
 package org.xapik.crypto.users.companies.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Data
 @Entity
@@ -40,4 +39,8 @@ public class CompanyEntity {
 
     @Column
     private Integer postalIndex;
+
+    @OneToMany(mappedBy = "regcode")
+    private Set<FinancialStatementEntity> financialStatements;
+
 }
