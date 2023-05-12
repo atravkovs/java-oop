@@ -1,20 +1,37 @@
 version: '3.1'
 
 networks:
-  records:
+  usernet:
+    driver: bridge
 
 services:
-  users-db:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
+  users-ui:
+    image: 506064558446.dkr.ecr.eu-north-1.amazonaws.com/imt-repository-ui:3cc9fb8a021ae3f84625a6f7941d9f5a41a45364
+    depends_on:
+      - users
+    networks:
+      - usernet
     ports:
-      - "3306:3306"
-    environment:
-      MYSQL_DATABASE: users
-      MYSQL_ROOT_PASSWORD: root
-    volumes:
-      - user-storage:/var/lib/mysql
+      - "80:80"
+  users:
+    image: 506064558446.dkr.ecr.eu-north-1.amazonaws.com/imt-repository:3cc9fb8a021ae3f84625a6f7941d9f5a41a45364
+    env_file: ./users/.env
+    networks:
+      - usernet
+    ports:
+      - "8080:8080"
 
-volumes:
-  user-storage:
+  # users-db:
+  #   image: mysql
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   restart: always
+  #   ports:
+  #     - "3306:3306"
+  #   environment:
+  #     MYSQL_DATABASE: users
+  #     MYSQL_ROOT_PASSWORD: root
+  #   volumes:
+  #     - user-storage:/var/lib/mysql
+
+# volumes:
+#   user-storage:
