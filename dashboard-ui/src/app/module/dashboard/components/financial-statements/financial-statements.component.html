@@ -1,6 +1,6 @@
 <div>
   <ul class="nav nav-tabs">
-    <li class="nav-item" *ngFor="let financialStatement of financialStatements">
+    <li class="nav-item" *ngFor="let financialStatement of ordered(financialStatements)">
       <a
         class="nav-link"
         [class.active]="
