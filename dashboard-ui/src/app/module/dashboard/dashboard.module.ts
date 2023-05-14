@@ -8,21 +8,26 @@ import { ProfileComponent } from './page/profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserModule } from '../shared/user/user.module';
 import { AuthenticationModule } from '../shared/authentication/authentication.module';
+import { CompanyDetailsComponent } from './page/company-details/company-details.component';
 
 const routes: Routes = [
+  {
+    path: 'profile',
+    component: ProfileComponent,
+  },
   {
     path: '',
     pathMatch: 'full',
     component: MainComponent,
   },
   {
-    path: 'profile',
-    component: ProfileComponent
-  }
+    path: 'company/:id',
+    component: CompanyDetailsComponent,
+  },
 ];
 
 @NgModule({
-  declarations: [MainComponent, ProfileComponent],
+  declarations: [MainComponent, ProfileComponent, CompanyDetailsComponent],
   imports: [
     UserModule,
     CommonModule,
