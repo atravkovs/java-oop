@@ -15,7 +15,8 @@ export class FinancialStatementsComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.activeFinancialStatement = this.financialStatements?.[0] ?? null;
+    this.activeFinancialStatement =
+      this.ordered(this.financialStatements)[0] ?? null;
   }
 
   openYear(year: number) {
@@ -23,5 +24,13 @@ export class FinancialStatementsComponent implements OnInit {
       this.financialStatements?.find(
         (financialStatement) => financialStatement.statementYear === year
       ) ?? this.activeFinancialStatement;
+  }
+
+  ordered(statements?: FinancialStatement[]) {
+    if (!statements) {
+      return [];
+    }
+
+    return statements.sort((st1, st2) => st2.statementYear - st1.statementYear);
   }
 }
