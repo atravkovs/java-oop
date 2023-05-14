@@ -1,0 +1,33 @@
+<div>
+  <ul class="nav nav-tabs">
+    <li class="nav-item" *ngFor="let financialStatement of financialStatements">
+      <a
+        class="nav-link"
+        [class.active]="
+          activeFinancialStatement?.statementYear ===
+          financialStatement.statementYear
+        "
+        [attr.aria-current]="
+          activeFinancialStatement?.statementYear ===
+          financialStatement.statementYear
+            ? 'page'
+            : undefined
+        "
+        (click)="openYear(financialStatement.statementYear)"
+      >
+        {{ financialStatement.statementYear }}
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="p-3" *ngIf="activeFinancialStatement">
+  <div>
+    <div>
+      <strong>Employee Count</strong>
+    </div>
+    <div>
+      {{ activeFinancialStatement.employeeCount }}
+    </div>
+  </div>
+</div>
