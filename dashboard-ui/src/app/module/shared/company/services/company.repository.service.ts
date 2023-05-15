@@ -18,4 +18,8 @@ export class CompanyRepositoryService {
       params: query,
     });
   }
+
+  getCompanyDetails(regcode: number): Observable<Company> {
+    return this.http.get<Company>(`/api/users/companies/${regcode}`);
+  }
 }
