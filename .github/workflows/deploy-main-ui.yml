@@ -61,5 +61,6 @@ jobs:
           port: 22
           script: |
             cd ~/app
+            aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 506064558446.dkr.ecr.eu-north-1.amazonaws.com
             docker compose pull
             docker compose up -d 
