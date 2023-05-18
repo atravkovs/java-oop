@@ -10,6 +10,7 @@ import { UserModule } from '../shared/user/user.module';
 import { AuthenticationModule } from '../shared/authentication/authentication.module';
 import { CompanyDetailsComponent } from './page/company-details/company-details.component';
 import { FinancialStatementsComponent } from './components/financial-statements/financial-statements.component';
+import { DataEntryComponent } from './components/data-entry/data-entry.component';
 
 const routes: Routes = [
   {
@@ -28,7 +29,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [MainComponent, ProfileComponent, CompanyDetailsComponent, FinancialStatementsComponent],
+  declarations: [MainComponent, ProfileComponent, CompanyDetailsComponent, FinancialStatementsComponent, DataEntryComponent],
   imports: [
     UserModule,
     CommonModule,
