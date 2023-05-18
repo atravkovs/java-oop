@@ -1,6 +1,9 @@
 <div>
   <ul class="nav nav-tabs">
-    <li class="nav-item" *ngFor="let financialStatement of ordered(financialStatements)">
+    <li
+      class="nav-item"
+      *ngFor="let financialStatement of ordered(financialStatements)"
+    >
       <a
         class="nav-link"
         [class.active]="
@@ -22,12 +25,127 @@
 </div>
 
 <div class="p-3" *ngIf="activeFinancialStatement">
-  <div>
-    <div>
-      <strong>Employee Count</strong>
-    </div>
-    <div>
+  <h4>Financial Data</h4>
+
+  <div class="d-flex w-100 flex-wrap data-container">
+    <app-data-entry title="Employee Count">
       {{ activeFinancialStatement.employeeCount }}
-    </div>
+    </app-data-entry>
+
+    <ng-container
+      *ngIf="
+        activeFinancialStatement.incomeStatementEntity[0];
+        let incomeStatement
+      "
+    >
+      <app-data-entry title="Income before Taxes">
+        {{ incomeStatement.incomeBeforeIncomeTaxes | number }}
+        {{ activeFinancialStatement.currency }}
+      </app-data-entry>
+
+      <app-data-entry title="Income after Taxes">
+        {{ incomeStatement.incomeAfterIncomeTaxes | number }}
+        {{ activeFinancialStatement.currency }}
+      </app-data-entry>
+
+      <app-data-entry title="Net Income">
+        {{ incomeStatement.netIncome | number }}
+        {{ activeFinancialStatement.currency }}
+      </app-data-entry>
+
+      <app-data-entry title="Net Turnover">
+        {{ incomeStatement.netTurnover | number }}
+        {{ activeFinancialStatement.currency }}
+      </app-data-entry>
+
+      <app-data-entry title="Labour Expenses">
+        {{ incomeStatement.byNatureLabourExpenses | number }}
+        {{ activeFinancialStatement.currency }}
+      </app-data-entry>
+
+      <app-data-entry title="Deprecation Expenses">
+        {{ incomeStatement.byNatureDepreciationExpenses | number }}
+        {{ activeFinancialStatement.currency }}
+      </app-data-entry>
+
+      <app-data-entry title="Operating Expenses">
+        {{ incomeStatement.otherOperatingExpenses | number }}
+        {{ activeFinancialStatement.currency }}
+      </app-data-entry>
+    </ng-container>
   </div>
+
+  <ng-container
+    *ngIf="
+      activeFinancialStatement.balanceStatementEntity[0];
+      let balanceStatement
+    "
+  >
+    <h4 class="mt-2">Balance Statements</h4>
+
+    <div class="d-flex flex-wrap w-100 data-container">
+      <app-data-entry title="Cash Amount">
+        {{ balanceStatement.cash | number }} {{ activeFinancialStatement.currency }}
+      </app-data-entry>
+
+      <app-data-entry title="Total Assets Amount">
+        {{ balanceStatement.totalAssets | number }}
+        {{ activeFinancialStatement.currency }}
+      </app-data-entry>
+
+      <app-data-entry title="Investment Amount">
+        {{ balanceStatement.investments | number }}
+        {{ activeFinancialStatement.currency }}
+      </app-data-entry>
+
+      <app-data-entry title="Fixed Assets Amount">
+        {{ balanceStatement.fixedAssets | number }}
+        {{ activeFinancialStatement.currency }}
+      </app-data-entry>
+
+      <app-data-entry title="Current Liabilities">
+        {{ balanceStatement.currentLiabilities | number }}
+        {{ activeFinancialStatement.currency }}
+      </app-data-entry>
+
+      <app-data-entry title="Equity">
+        {{ balanceStatement.equity | number }}
+        {{ activeFinancialStatement.currency }}
+      </app-data-entry>
+
+      <app-data-entry title="Total Equities">
+        {{ balanceStatement.totalEquities | number }}
+        {{ activeFinancialStatement.currency }}
+      </app-data-entry>
+    </div>
+  </ng-container>
+
+  <ng-container
+    *ngIf="activeFinancialStatement.cashFlowStatementEntity[0]; let cashFlow"
+  >
+    <h4 class="mt-2">Cash Flow Statement</h4>
+
+    <div class="d-flex flex-wrap w-100 data-container">
+      <app-data-entry title="Beginning of the year">
+        {{ cashFlow.atBeginningOfYear | number }} {{ activeFinancialStatement.currency }}
+      </app-data-entry>
+
+      <app-data-entry title="End of the year">
+        {{ cashFlow.atEndOfYear | number }} {{ activeFinancialStatement.currency }}
+      </app-data-entry>
+
+      <app-data-entry title="Dividends paid">
+        {{ cashFlow.cffDividendsPaid | number }} {{ activeFinancialStatement.currency }}
+      </app-data-entry>
+
+      <app-data-entry title="Loans received">
+        {{ cashFlow.cffLoansReceived | number }} {{ activeFinancialStatement.currency }}
+      </app-data-entry>
+
+      <app-data-entry title="Acquired fixed assets">
+        {{ cashFlow.cfiAcquisitionOfFixedAssetsIntangibleAssets | number }}
+        {{ activeFinancialStatement.currency }}
+      </app-data-entry>
+    </div>
+  </ng-container>
 </div>
