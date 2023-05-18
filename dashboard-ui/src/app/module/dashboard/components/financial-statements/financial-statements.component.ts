@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FinancialStatement } from 'src/app/module/shared/company/models/company.model';
+import { DatasetModel } from '../year-graph/year-graph.model';
 
 @Component({
   selector: 'app-financial-statements',

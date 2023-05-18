@@ -11,6 +11,8 @@ import { AuthenticationModule } from '../shared/authentication/authentication.mo
 import { CompanyDetailsComponent } from './page/company-details/company-details.component';
 import { FinancialStatementsComponent } from './components/financial-statements/financial-statements.component';
 import { DataEntryComponent } from './components/data-entry/data-entry.component';
+import { NgChartsModule } from 'ng2-charts';
+import { YearGraphComponent } from './components/year-graph/year-graph.component';
 
 const routes: Routes = [
   {
@@ -29,7 +31,14 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [MainComponent, ProfileComponent, CompanyDetailsComponent, FinancialStatementsComponent, DataEntryComponent],
+  declarations: [
+    MainComponent,
+    ProfileComponent,
+    CompanyDetailsComponent,
+    FinancialStatementsComponent,
+    DataEntryComponent,
+    YearGraphComponent,
+  ],
   imports: [
     UserModule,
     CommonModule,
@@ -39,6 +48,7 @@ const routes: Routes = [
     TranslateModule,
     WrappersModule,
     FormsModule,
+    NgChartsModule,
   ],
 })
 export class DashboardModule {}
