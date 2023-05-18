@@ -28,23 +28,7 @@
 
     <div class="row mb-3" *ngFor="let company of companies.content">
       <div class="col">
-        <app-card>
-          <div class="d-flex justify-content-between">
-            <div class="d-flex">
-              <div>
-                <i class="bi bi-shop"></i>
-              </div>
-              <div class="ms-3 pt-25 pb-1">
-                <a
-                  class="name-font"
-                  [routerLink]="['/company/', company.regcode]"
-                >
-                  {{ company.name }}
-                </a>
-              </div>
-            </div>
-          </div>
-        </app-card>
+        <app-company-row [company]="company"></app-company-row>
       </div>
     </div>
 

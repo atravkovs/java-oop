@@ -13,6 +13,7 @@ import { FinancialStatementsComponent } from './components/financial-statements/
 import { DataEntryComponent } from './components/data-entry/data-entry.component';
 import { NgChartsModule } from 'ng2-charts';
 import { YearGraphComponent } from './components/year-graph/year-graph.component';
+import { CompanyRowComponent } from './components/company-row/company-row.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,7 @@ const routes: Routes = [
     FinancialStatementsComponent,
     DataEntryComponent,
     YearGraphComponent,
+    CompanyRowComponent,
   ],
   imports: [
     UserModule,

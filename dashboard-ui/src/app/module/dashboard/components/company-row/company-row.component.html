@@ -1,0 +1,25 @@
+<app-card *ngIf="company">
+  <div class="d-flex justify-content-between">
+    <div class="d-flex">
+      <div>
+        <i class="bi bi-shop"></i>
+      </div>
+      <div class="ms-3 pt-25 pb-1">
+        <a class="name-font" [routerLink]="['/company/', company.regcode]">
+          {{ company.name }}
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="ms-auto pt-2">
+        <i
+          (click)="toggleSelectForComparison()"
+          class="bi text-primary click"
+          [ngClass]="[
+            selectedForComparison ? 'bi-bar-chart-fill' : 'bi-bar-chart'
+          ]"
+        ></i>
+      </div>
+    </div>
+  </div>
+</app-card>

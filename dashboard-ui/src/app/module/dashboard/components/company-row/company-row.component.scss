@@ -6,10 +6,6 @@
   cursor: pointer;
 }
 
-.col.active:hover {
-  background-color: #cadbf1;
-}
-
 .bi {
   font-size: 32px;
 }
@@ -18,7 +14,7 @@
   font-size: 64px;
 }
 
-.bi-bar-chart {
+.bi-bar-chart, .bi-bar-chart-fill {
   font-size: 24px;
 }
 
