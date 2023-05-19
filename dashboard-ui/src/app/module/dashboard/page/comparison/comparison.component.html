@@ -1,16 +1,27 @@
 <div class="container pt-5">
-  <ng-container *ngIf="comparisons$ | async; let comparisons">
-    <div class="row">
-      <div class="col">
-        <h2>Compare companies</h2>
-      </div>
+  <div class="row">
+    <div class="col-8">
+      <h2>Compare companies</h2>
     </div>
+    <div class="col-4">
+      <button type="button" class="btn btn-primary" (click)="clear()">
+        Clear
+      </button>
+    </div>
+  </div>
 
-    <div class="d-flex flex-wrap w-100 mt-4">
-      <div class="ml-2" *ngFor="let dataset of comparisons | keyvalue">
-        <strong>{{ dataset.key }}</strong>
-        <app-year-graph [dataset]="dataset.value"></app-year-graph>
+  <ng-container *ngIf="getRegCodesCount() > 0">
+    <ng-container *ngIf="comparisons$ | async; let comparisons">
+      <div class="d-flex flex-wrap w-100 mt-4">
+        <div class="ml-2" *ngFor="let dataset of comparisons | keyvalue">
+          <strong>{{ dataset.key }}</strong>
+          <app-year-graph [dataset]="dataset.value"></app-year-graph>
+        </div>
       </div>
-    </div>
+    </ng-container>
   </ng-container>
+
+  <div *ngIf="getRegCodesCount() <= 0">
+    Please select companies for comparison first!
+  </div>
 </div>

@@ -22,4 +22,12 @@ export class ComparisonComponent implements OnInit {
       this.comparisonService.getRegcodes()
     );
   }
+
+  getRegCodesCount(): number {
+    return this.comparisonService.getRegcodes().length;
+  }
+
+  clear() {
+    this.comparisonService.clear();
+  }
 }

@@ -130,36 +130,46 @@
   </div>
 
   <ng-container *ngIf="companies$ | async; let companies">
-    <div class="row mb-3 mt-3">
-      <div class="col">
-        <strong>Total</strong> {{ companies.totalElements }} companies
+    <ng-template [ngIf]="!isLoading">
+      <div class="row mb-3 mt-3">
+        <div class="col">
+          <strong>Total</strong> {{ companies.totalElements }} companies
+        </div>
       </div>
-    </div>
 
-    <div class="row mb-3" *ngFor="let company of companies.content">
-      <div class="col">
-        <app-company-row [company]="company"></app-company-row>
+      <div class="row mb-3" *ngFor="let company of companies.content">
+        <div class="col">
+          <app-company-row [company]="company"></app-company-row>
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col">
-        <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-center">
-            <li
-              class="page-item"
-              [class.active]="query.page === page"
-              [class.click]="query.page !== page"
-              *ngFor="
-                let num of numSequence(companies.totalPages);
-                let page = index
-              "
-            >
-              <a class="page-link" (click)="updatePage(page)">{{ page + 1 }}</a>
-            </li>
-          </ul>
-        </nav>
+      <div class="row">
+        <div class="col">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+              <li
+                class="page-item"
+                [class.active]="query.page === page"
+                [class.click]="query.page !== page"
+                *ngFor="
+                  let num of numSequence(companies.totalPages);
+                  let page = index
+                "
+              >
+                <a class="page-link" (click)="updatePage(page)">{{ page + 1 }}</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
-    </div>
+    </ng-template>
   </ng-container>
+
+  <ng-template [ngIf]="isLoading">
+    <div class="d-flex justify-content-center mt-5">
+      <div class="spinner-border text-success" role="status">
+        <span class="sr-only"></span>
+      </div>
+    </div>
+  </ng-template>
 </div>
