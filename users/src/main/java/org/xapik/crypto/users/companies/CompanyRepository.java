@@ -36,6 +36,14 @@ public interface CompanyRepository extends JpaRepository<CompanyEntity, Long>, J
             return (company, cq, cb) -> cb.equal(company.get("companyType"), companyType);
         }
 
+        static Specification<CompanyEntity> financialStatementCountAbove(Long greaterThan) {
+            return (company, cq, cb) -> {
+                var q2 = cq.subquery(Long.class);
+
+                return cb.gt(q2.select(cb.count(q2.correlate(company).join("financialStatements"))), greaterThan);
+            };
+        }
+
         static Specification<CompanyEntity> hasEmployeesInRange(RangeDto employeeRange) {
             return (company, cq, cb) -> {
                 if (employeeRange.getTo() != 0) {

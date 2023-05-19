@@ -20,6 +20,7 @@ export class MainComponent implements OnInit {
     page: 0,
     search: '',
     activeCompanies: false,
+    hasStats: false,
     companyType: 'ALL',
     employeeFrom: 0,
     employeeTo: 0,
