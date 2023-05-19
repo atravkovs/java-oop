@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Page } from '../../models/page.model';
 import { Company } from '../models/company.model';
+import { ComparisonDatasets } from '../models/comparison.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,5 +22,13 @@ export class CompanyRepositoryService {
 
   getCompanyDetails(regcode: number): Observable<Company> {
     return this.http.get<Company>(`/api/users/companies/${regcode}`);
+  }
+
+  compareCompanies(regcodes: number[]): Observable<ComparisonDatasets> {
+    return this.http.get<ComparisonDatasets>(`/api/users/companies/compare`, {
+      params: {
+        regcodes,
+      },
+    });
   }
 }

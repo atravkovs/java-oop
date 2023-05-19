@@ -1,0 +1,16 @@
+<div class="container pt-5">
+  <ng-container *ngIf="comparisons$ | async; let comparisons">
+    <div class="row">
+      <div class="col">
+        <h2>Compare companies</h2>
+      </div>
+    </div>
+
+    <div class="d-flex flex-wrap w-100 mt-4">
+      <div class="ml-2" *ngFor="let dataset of comparisons | keyvalue">
+        <strong>{{ dataset.key }}</strong>
+        <app-year-graph [dataset]="dataset.value"></app-year-graph>
+      </div>
+    </div>
+  </ng-container>
+</div>

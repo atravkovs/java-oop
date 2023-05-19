@@ -6,7 +6,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.xapik.crypto.users.companies.models.CompanyEntity;
 import org.xapik.crypto.users.companies.models.CompanySimpleDto;
+import org.xapik.crypto.users.companies.models.comparison.ComparisonDto;
 import org.xapik.crypto.users.users.model.UserEntity;
+
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -30,6 +33,11 @@ public class CompanyController {
     @GetMapping("/{regcode}")
     public CompanyEntity getCompany(@PathVariable("regcode") Long regcode) {
         return this.companyService.getCompanyDetails(regcode);
+    }
+
+    @GetMapping("/compare")
+    public ComparisonDto compareCompanies(@RequestParam List<Long> regcodes) {
+        return this.companyService.compareCompanies(regcodes);
     }
 
 }

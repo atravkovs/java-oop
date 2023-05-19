@@ -10,6 +10,11 @@ import { UserModule } from '../shared/user/user.module';
 import { AuthenticationModule } from '../shared/authentication/authentication.module';
 import { CompanyDetailsComponent } from './page/company-details/company-details.component';
 import { FinancialStatementsComponent } from './components/financial-statements/financial-statements.component';
+import { DataEntryComponent } from './components/data-entry/data-entry.component';
+import { NgChartsModule } from 'ng2-charts';
+import { YearGraphComponent } from './components/year-graph/year-graph.component';
+import { CompanyRowComponent } from './components/company-row/company-row.component';
+import { ComparisonComponent } from './page/comparison/comparison.component';
 
 const routes: Routes = [
   {
@@ -25,10 +30,23 @@ const routes: Routes = [
     path: 'company/:id',
     component: CompanyDetailsComponent,
   },
+  {
+    path: 'compare',
+    component: ComparisonComponent,
+  },
 ];
 
 @NgModule({
-  declarations: [MainComponent, ProfileComponent, CompanyDetailsComponent, FinancialStatementsComponent],
+  declarations: [
+    MainComponent,
+    ProfileComponent,
+    CompanyDetailsComponent,
+    FinancialStatementsComponent,
+    DataEntryComponent,
+    YearGraphComponent,
+    CompanyRowComponent,
+    ComparisonComponent,
+  ],
   imports: [
     UserModule,
     CommonModule,
@@ -38,6 +56,7 @@ const routes: Routes = [
     TranslateModule,
     WrappersModule,
     FormsModule,
+    NgChartsModule,
   ],
 })
 export class DashboardModule {}
