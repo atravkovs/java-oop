@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject, switchMap } from 'rxjs';
+import { Observable, Subject, switchMap, tap } from 'rxjs';
 import { CompanyType } from 'src/app/module/shared/company/models/company-type.model';
 import { Company } from 'src/app/module/shared/company/models/company.model';
 import { CompanyRepositoryService } from 'src/app/module/shared/company/services/company.repository.service';
@@ -15,6 +15,8 @@ import { UserRepositoryService } from 'src/app/module/shared/user/services/user.
 export class MainComponent implements OnInit {
   user$: Observable<User> | null = null;
   companyTypes$: Observable<CompanyType[]> | null = null;
+
+  isLoading: boolean = true;
 
   query = {
     page: 0,
@@ -43,6 +45,9 @@ export class MainComponent implements OnInit {
     this.companies$ = this.refresh$.pipe(
       switchMap(() => {
         return this.companyRepository.getCompanies(this.query);
+      }),
+      tap(() => {
+        this.isLoading = false;
       })
     );
   }
@@ -53,6 +58,7 @@ export class MainComponent implements OnInit {
 
   onSearch(): void {
     this.query.page = 0;
+    this.isLoading = true;
     this.refresh$.next('');
   }
 
