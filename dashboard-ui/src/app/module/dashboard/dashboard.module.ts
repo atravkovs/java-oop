@@ -15,6 +15,8 @@ import { NgChartsModule } from 'ng2-charts';
 import { YearGraphComponent } from './components/year-graph/year-graph.component';
 import { CompanyRowComponent } from './components/company-row/company-row.component';
 import { ComparisonComponent } from './page/comparison/comparison.component';
+import { TopsComponent } from './page/tops/tops.component';
+import { TopCompaniesComponent } from './components/top-companies/top-companies.component';
 
 const routes: Routes = [
   {
@@ -34,6 +36,10 @@ const routes: Routes = [
     path: 'compare',
     component: ComparisonComponent,
   },
+  {
+    path: 'tops',
+    component: TopsComponent,
+  },
 ];
 
 @NgModule({
@@ -46,6 +52,8 @@ const routes: Routes = [
     YearGraphComponent,
     CompanyRowComponent,
     ComparisonComponent,
+    TopsComponent,
+    TopCompaniesComponent,
   ],
   imports: [
     UserModule,

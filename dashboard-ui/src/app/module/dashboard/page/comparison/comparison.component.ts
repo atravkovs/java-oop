@@ -12,6 +12,11 @@ import { ComparisonService } from 'src/app/module/shared/comparison/comparison.s
 export class ComparisonComponent implements OnInit {
   comparisons$: Observable<ComparisonDatasets> | null = null;
 
+  textMapping: Record<string, string> = {
+    employeeCount: 'Employee Count',
+    incomeBeforeTaxes: 'Income Before Taxes',
+  };
+
   constructor(
     private companyService: CompanyRepositoryService,
     private comparisonService: ComparisonService

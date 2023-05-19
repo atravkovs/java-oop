@@ -1,20 +1,24 @@
 package org.xapik.crypto.users.companies;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.xapik.crypto.users.companies.models.CompanyQueryDto;
+import org.xapik.crypto.users.companies.models.dtos.CompanyQueryDto;
 import org.xapik.crypto.users.companies.models.entities.CompanyEntity;
-import org.xapik.crypto.users.companies.models.CompanyNotFoundException;
-import org.xapik.crypto.users.companies.models.CompanySimpleDto;
+import org.xapik.crypto.users.companies.models.exceptions.CompanyNotFoundException;
+import org.xapik.crypto.users.companies.models.dtos.CompanySimpleDto;
 import org.xapik.crypto.users.companies.models.comparison.CompanyDatasetDto;
 import org.xapik.crypto.users.companies.models.comparison.ComparisonDto;
 import org.xapik.crypto.users.companies.models.entities.CompanyTypeEntity;
+import org.xapik.crypto.users.companies.models.exceptions.CompanyTopTypeNotRecognizedException;
 import org.xapik.crypto.users.comparison.DatasetType;
 import org.xapik.crypto.users.comparison.GenerateDatasetFactory;
 import org.xapik.crypto.users.comparison.IGenerateDataset;
+import org.xapik.crypto.users.tops.CompanyTopFactory;
+import org.xapik.crypto.users.tops.CompanyTopType;
 
 import static org.springframework.data.jpa.domain.Specification.where;
 import static org.xapik.crypto.users.companies.CompanyRepository.Specs.*;
@@ -22,18 +26,13 @@ import static org.xapik.crypto.users.companies.CompanyRepository.Specs.*;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CompanyService {
 
     private final CompanyRepository companyRepository;
     private final GenerateDatasetFactory datasetFactory;
     private final CompanyTypeRepository companyTypeRepository;
-
-    @Autowired
-    public CompanyService(CompanyRepository companyRepository, GenerateDatasetFactory datasetFactory, CompanyTypeRepository companyTypeRepository) {
-        this.companyRepository = companyRepository;
-        this.datasetFactory = datasetFactory;
-        this.companyTypeRepository = companyTypeRepository;
-    }
+    private final CompanyTopFactory companyTopFactory;
 
     public Page<CompanySimpleDto> getCompanies(CompanyQueryDto companyQuery) {
         var pageable = Pageable.ofSize(companyQuery.getPageSize()).withPage(companyQuery.getPageNumber());
@@ -86,6 +85,16 @@ public class CompanyService {
         comparisonDto.setIncomeBeforeTaxes(mapCompaniesToDataset(companies, DatasetType.INCOME_BEFORE_TAXES));
 
         return comparisonDto;
+    }
+
+    public List<CompanyEntity> getTopCompanies(String category, Long year) {
+        try {
+            CompanyTopType companyTopType = CompanyTopType.valueOf(category.toUpperCase());
+            var topFactory = companyTopFactory.makeCompanyTop(companyTopType);
+            return topFactory.getCompanyTop(year);
+        } catch (IllegalArgumentException e) {
+            throw new CompanyTopTypeNotRecognizedException(category);
+        }
     }
 
     public List<CompanyTypeEntity> getCompanyTypes() {
