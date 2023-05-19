@@ -29,6 +29,7 @@ public class CompanyController {
                                                @RequestParam(defaultValue = "20") Integer pageSize,
                                                @RequestParam(required = false) String search,
                                                @RequestParam(required = false) Boolean activeCompanies,
+                                               @RequestParam(required = false) Boolean hasStats,
                                                @RequestParam(required = false) String companyType,
                                                @RequestParam(defaultValue = "0") Integer employeeFrom,
                                                @RequestParam(defaultValue = "0") Integer employeeTo,
@@ -41,6 +42,7 @@ public class CompanyController {
         companyQueryDto.setPageNumber(page);
         companyQueryDto.setActiveCompanies(activeCompanies);
         companyQueryDto.setCompanyType(companyType);
+        companyQueryDto.setHasStats(hasStats);
         companyQueryDto.setEmployeeRange(new RangeDto(employeeFrom, employeeTo));
         companyQueryDto.setIncomeRange(new RangeDto(incomeFrom, incomeTo));
 

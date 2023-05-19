@@ -17,6 +17,7 @@ public class CompanySimpleDto {
     private Date terminatedDate;
     private String address;
     private Integer postalIndex;
+    private Integer financialStatementCount;
 
     public static CompanySimpleDto fromCompanyEntity(CompanyEntity companyEntity) {
         CompanySimpleDto companySimpleDto = new CompanySimpleDto();
@@ -28,6 +29,7 @@ public class CompanySimpleDto {
         companySimpleDto.setTerminatedDate(companyEntity.getTerminatedDate());
         companySimpleDto.setAddress(companyEntity.getAddress());
         companySimpleDto.setPostalIndex(companyEntity.getPostalIndex());
+        companySimpleDto.setFinancialStatementCount(companyEntity.getFinancialStatements().size());
 
         return companySimpleDto;
     }

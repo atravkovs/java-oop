@@ -26,6 +26,10 @@ export class ComparisonService {
     return this.comparisonSet.has(regcode);
   }
 
+  hasToCompare(): boolean {
+    return this.comparisonSet.size > 0;
+  }
+
   clear() {
     this.comparisonSet.clear();
     this.updateLocalStorage();

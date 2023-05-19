@@ -10,7 +10,7 @@
         </a>
       </div>
     </div>
-    <div>
+    <div *ngIf="company.financialStatementCount > 0">
       <div class="ms-auto pt-2">
         <i
           (click)="toggleSelectForComparison()"

@@ -51,6 +51,10 @@ public class CompanyService {
             query = query.and(isActive(true));
         }
 
+        if (companyQuery.getHasStats() != null && companyQuery.getHasStats()) {
+            query = query.and(financialStatementCountAbove(1L));
+        }
+
         if (companyQuery.getCompanyType() != null && !companyQuery.getCompanyType().equals("ALL")) {
             query = query.and(hasCompanyType(companyQuery.getCompanyType()));
         }

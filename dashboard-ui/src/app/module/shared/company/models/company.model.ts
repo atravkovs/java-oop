@@ -8,6 +8,7 @@ export interface Company {
   terminatedDate: null;
   address: string;
   postalIndex: number;
+  financialStatementCount: number;
   financialStatements: FinancialStatement[];
 }
 
