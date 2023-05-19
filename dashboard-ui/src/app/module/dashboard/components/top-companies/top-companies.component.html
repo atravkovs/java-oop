@@ -1,5 +1,5 @@
 <div>
-  <app-card *ngFor="let company of companies$ | async; let i = index">
+  <app-card class="mb-2" *ngFor="let company of companies$ | async; let i = index">
     <ng-container *ngIf="!isLoading">
       <div class="d-flex justify-content-between">
         <div class="d-flex">
