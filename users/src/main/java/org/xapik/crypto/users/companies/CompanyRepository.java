@@ -10,7 +10,6 @@ import org.xapik.crypto.users.companies.models.dtos.RangeDto;
 import org.xapik.crypto.users.companies.models.entities.CompanyEntity;
 
 
-
 public interface CompanyRepository extends JpaRepository<CompanyEntity, Long>, JpaSpecificationExecutor<CompanyEntity> {
 
     @Query("""
@@ -66,20 +65,32 @@ public interface CompanyRepository extends JpaRepository<CompanyEntity, Long>, J
         static Specification<CompanyEntity> hasEmployeesInRange(RangeDto employeeRange) {
             return (company, cq, cb) -> {
                 if (employeeRange.getTo() != 0) {
-                    return cb.between(company.join("financialStatements").get("employeeCount"), employeeRange.getFrom(), employeeRange.getTo());
+                    return cb.and(
+                            cb.between(company.join("financialStatements").get("employeeCount"), employeeRange.getFrom(), employeeRange.getTo()),
+                            cb.equal(company.join("financialStatements").get("statementYear"), 2021)
+                    );
                 }
 
-                return cb.greaterThan(company.join("financialStatements").get("employeeCount"), employeeRange.getFrom());
+                return cb.and(
+                        cb.greaterThan(company.join("financialStatements").get("employeeCount"), employeeRange.getFrom()),
+                        cb.equal(company.join("financialStatements").get("statementYear"), 2021)
+                );
             };
         }
 
         static Specification<CompanyEntity> hasIncomeInRange(RangeDto incomeRange) {
             return (company, cq, cb) -> {
                 if (incomeRange.getTo() != 0) {
-                    return cb.between(company.join("financialStatements").join("incomeStatementEntity").get("netIncome"), incomeRange.getFrom(), incomeRange.getTo());
+                    return cb.and(
+                            cb.between(company.join("financialStatements").join("incomeStatementEntity").get("netIncome"), incomeRange.getFrom(), incomeRange.getTo()),
+                            cb.equal(company.join("financialStatements").get("statementYear"), 2021)
+                    );
                 }
 
-                return cb.greaterThan(company.join("financialStatements").join("incomeStatementEntity").get("netIncome"), incomeRange.getFrom());
+                return cb.and(
+                        cb.greaterThan(company.join("financialStatements").join("incomeStatementEntity").get("netIncome"), incomeRange.getFrom()),
+                        cb.equal(company.join("financialStatements").get("statementYear"), 2021)
+                );
             };
         }
     }
