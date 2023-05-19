@@ -1,4 +1,4 @@
-package org.xapik.crypto.users.companies.models;
+package org.xapik.crypto.users.companies.models.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
