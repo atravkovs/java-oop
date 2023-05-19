@@ -8,6 +8,10 @@ export class ComparisonService {
 
   constructor() {}
 
+  getRegcodes(): number[] {
+    return [...this.comparisonSet];
+  }
+
   addForComparison(regcode: number) {
     this.comparisonSet.add(regcode);
     this.updateLocalStorage();

@@ -40,7 +40,7 @@ public class CompanyEntity {
     @Column
     private Integer postalIndex;
 
-    @OneToMany(mappedBy = "regcode")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "regcode")
     private Set<FinancialStatementEntity> financialStatements;
 
 }
