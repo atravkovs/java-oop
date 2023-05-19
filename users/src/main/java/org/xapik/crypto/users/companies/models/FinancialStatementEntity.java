@@ -30,13 +30,13 @@ public class FinancialStatementEntity {
     @Column
     private String currency;
 
-    @OneToMany(mappedBy = "statementId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "statementId")
     private Set<IncomeStatementEntity> incomeStatementEntity;
 
-    @OneToMany(mappedBy = "statementId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "statementId")
     private Set<BalanceStatementEntity> balanceStatementEntity;
 
-    @OneToMany(mappedBy = "statementId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "statementId")
     private Set<CashFlowStatementEntity> cashFlowStatementEntity;
 
 }

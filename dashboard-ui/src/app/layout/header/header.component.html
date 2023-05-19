@@ -23,6 +23,15 @@
             >Home</a
           >
         </li>
+        <li class="nav-item">
+          <a
+            [routerLink]="['/compare']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="nav-link"
+            >Compare</a
+          >
+        </li>
         <ng-template [ngIf]="isLoggedIn() && isAdmin()">
           <li class="nav-item">
             <a

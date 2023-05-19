@@ -35,8 +35,8 @@ export class YearGraphComponent implements OnInit {
       label: set.title,
       fill: false,
       tension: 0.1,
-      pointRadius: 2,
-      pointBorderWidth: 2,
+      pointRadius: 3,
+      pointBorderWidth: 1,
       showLine: true,
     }));
   }
