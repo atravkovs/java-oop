@@ -1,28 +1,41 @@
 <div>
-  <app-card class="mb-2" *ngFor="let company of companies$ | async; let i = index">
-    <ng-container *ngIf="!isLoading">
-      <div class="d-flex justify-content-between">
-        <div class="d-flex">
-          <div>
-            <span class="fancy-font">#{{ i + 1 }}</span>
+  <div
+    class="row mb-2"
+    *ngFor="let company of companies$ | async; let i = index"
+  >
+    <div class="col">
+      <app-card>
+        <ng-container *ngIf="!isLoading">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex">
+              <div>
+                <span class="fancy-font">#{{ i + 1 }}</span>
+              </div>
+              <div class="ms-3 pt-25 pb-1">
+                <a
+                  class="name-font"
+                  [routerLink]="['/company/', company.regcode]"
+                >
+                  {{ company.name }}
+                </a>
+              </div>
+            </div>
+            <div *ngIf="findYear(company); let statement">
+              <div class="ms-auto pt-2" *ngIf="category === 'employee'">
+                {{ statement.employeeCount }} employees
+              </div>
+              <div class="ms-auto pt-2" *ngIf="category === 'income'">
+                {{
+                  statement.incomeStatementEntity[0]?.netIncome ?? 0 | number
+                }}
+                EUR
+              </div>
+            </div>
           </div>
-          <div class="ms-3 pt-25 pb-1">
-            <a class="name-font" [routerLink]="['/company/', company.regcode]">
-              {{ company.name }}
-            </a>
-          </div>
-        </div>
-        <div *ngIf="findYear(company); let statement">
-          <div class="ms-auto pt-2" *ngIf="category === 'employee'">
-            {{ statement.employeeCount }} employees
-          </div>
-          <div class="ms-auto pt-2" *ngIf="category === 'income'">
-            {{ statement.incomeStatementEntity[0]!.netIncome | number }} EUR
-          </div>
-        </div>
-      </div>
-    </ng-container>
-  </app-card>
+        </ng-container>
+      </app-card>
+    </div>
+  </div>
 
   <div class="d-flex justify-content-center mt-5" *ngIf="isLoading">
     <div class="spinner-border text-success" role="status">

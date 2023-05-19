@@ -52,7 +52,16 @@ export class TopCompaniesComponent implements OnInit, OnChanges {
 
   findYear(company: Company): FinancialStatement {
     return company.financialStatements
-      .sort((s1, s2) => s2.employeeCount - s1.employeeCount)
+      .sort((s1, s2) => {
+        if (this.category === 'employee') {
+          return s2.employeeCount - s1.employeeCount;
+        } else {
+          return (
+            (s2.incomeStatementEntity[0]?.netIncome ?? 0)  -
+            (s1.incomeStatementEntity[0]?.netIncome ?? 0)
+          );
+        }
+      })
       .find((statement) => statement.statementYear === this.year)!;
   }
 }
