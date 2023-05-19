@@ -21,6 +21,10 @@ export class MainComponent implements OnInit {
     search: '',
     activeCompanies: false,
     companyType: 'ALL',
+    employeeFrom: 0,
+    employeeTo: 0,
+    incomeFrom: 0,
+    incomeTo: 0,
   };
 
   refresh$: Subject<string> = new Subject();
