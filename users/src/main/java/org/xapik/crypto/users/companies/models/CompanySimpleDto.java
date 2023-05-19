@@ -1,6 +1,7 @@
 package org.xapik.crypto.users.companies.models;
 
 import lombok.Data;
+import org.xapik.crypto.users.companies.models.entities.CompanyEntity;
 
 import java.util.Date;
 

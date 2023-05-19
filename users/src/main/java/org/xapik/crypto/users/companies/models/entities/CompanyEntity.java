@@ -1,6 +1,5 @@
-package org.xapik.crypto.users.companies.models;
+package org.xapik.crypto.users.companies.models.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;

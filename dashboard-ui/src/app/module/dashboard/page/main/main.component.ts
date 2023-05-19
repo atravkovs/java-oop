@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subject, switchMap } from 'rxjs';
+import { CompanyType } from 'src/app/module/shared/company/models/company-type.model';
 import { Company } from 'src/app/module/shared/company/models/company.model';
 import { CompanyRepositoryService } from 'src/app/module/shared/company/services/company.repository.service';
 import { Page } from 'src/app/module/shared/models/page.model';
@@ -13,10 +14,13 @@ import { UserRepositoryService } from 'src/app/module/shared/user/services/user.
 })
 export class MainComponent implements OnInit {
   user$: Observable<User> | null = null;
+  companyTypes$: Observable<CompanyType[]> | null = null;
 
   query = {
-    search: '',
     page: 0,
+    search: '',
+    activeCompanies: false,
+    companyType: 'ALL',
   };
 
   refresh$: Subject<string> = new Subject();
@@ -29,6 +33,7 @@ export class MainComponent implements OnInit {
 
   ngOnInit(): void {
     this.user$ = this.userRepository.getCurrentUser();
+    this.companyTypes$ = this.companyRepository.getCompanyTypes();
 
     this.companies$ = this.refresh$.pipe(
       switchMap(() => {

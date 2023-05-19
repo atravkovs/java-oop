@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Page } from '../../models/page.model';
 import { Company } from '../models/company.model';
 import { ComparisonDatasets } from '../models/comparison.model';
+import { CompanyType } from '../models/company-type.model';
 
 @Injectable({
   providedIn: 'root',
@@ -30,5 +31,9 @@ export class CompanyRepositoryService {
         regcodes,
       },
     });
+  }
+
+  getCompanyTypes(): Observable<CompanyType[]> {
+    return this.http.get<CompanyType[]>(`/api/users/companies/types`);
   }
 }
