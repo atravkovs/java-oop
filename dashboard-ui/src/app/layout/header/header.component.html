@@ -32,6 +32,15 @@
             >Compare</a
           >
         </li>
+        <li class="nav-item" *ngIf="isLoggedIn()">
+          <a
+            [routerLink]="['/tops']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="nav-link"
+            >Tops</a
+          >
+        </li>
         <ng-template [ngIf]="isLoggedIn() && isAdmin()">
           <li class="nav-item">
             <a

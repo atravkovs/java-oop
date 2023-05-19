@@ -6,12 +6,31 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.relational.core.sql.In;
-import org.xapik.crypto.users.companies.models.RangeDto;
+import org.xapik.crypto.users.companies.models.dtos.RangeDto;
 import org.xapik.crypto.users.companies.models.entities.CompanyEntity;
 
 
+
 public interface CompanyRepository extends JpaRepository<CompanyEntity, Long>, JpaSpecificationExecutor<CompanyEntity> {
+
+    @Query("""
+            select c from CompanyEntity c
+            INNER JOIN FinancialStatementEntity f
+                ON f.regcode = c.regcode
+            WHERE f.statementYear = :year
+            ORDER BY f.employeeCount DESC""")
+    Page<CompanyEntity> findTopByEmployeeCount(Pageable pageable, Long year);
+
+    @Query("""
+            select c from CompanyEntity c
+            INNER JOIN FinancialStatementEntity f
+                ON f.regcode = c.regcode
+            INNER JOIN IncomeStatementEntity  i
+                ON i.statementId = f.statementFileId
+            WHERE f.statementYear = :year
+            GROUP BY c
+            ORDER BY i.netIncome DESC""")
+    Page<CompanyEntity> findTopByNetIncome(Pageable pageable, Long year);
 
     interface Specs {
         static Specification<CompanyEntity> containsRegcode(String regcode) {

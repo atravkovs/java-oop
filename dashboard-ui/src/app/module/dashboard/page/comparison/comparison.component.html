@@ -13,8 +13,8 @@
   <ng-container *ngIf="getRegCodesCount() > 0">
     <ng-container *ngIf="comparisons$ | async; let comparisons">
       <div class="d-flex flex-wrap w-100 mt-4">
-        <div class="ml-2" *ngFor="let dataset of comparisons | keyvalue">
-          <strong>{{ dataset.key }}</strong>
+        <div class="ms-4" *ngFor="let dataset of comparisons | keyvalue">
+          <strong>{{ textMapping[dataset.key] || dataset.key }}</strong>
           <app-year-graph [dataset]="dataset.value"></app-year-graph>
         </div>
       </div>
