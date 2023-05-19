@@ -55,6 +55,16 @@ public class CompanyService {
             query = query.and(hasCompanyType(companyQuery.getCompanyType()));
         }
 
+        var employeeRange = companyQuery.getEmployeeRange();
+        if (employeeRange.getFrom() != 0 || employeeRange.getTo() != 0) {
+            query = query.and(hasEmployeesInRange(employeeRange));
+        }
+
+        var incomeRange = companyQuery.getIncomeRange();
+        if (incomeRange.getFrom() != 0 || incomeRange.getTo() != 0) {
+            query = query.and(hasIncomeInRange(incomeRange));
+        }
+
         Page<CompanyEntity> companies = this.companyRepository.findAll(query, pageable);
 
         return companies.map(CompanySimpleDto::fromCompanyEntity);

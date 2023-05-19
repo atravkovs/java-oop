@@ -10,5 +10,7 @@ public class CompanyQueryDto {
     private String search;
     private Boolean activeCompanies;
     private String companyType;
+    private RangeDto employeeRange;
+    private RangeDto incomeRange;
 
 }

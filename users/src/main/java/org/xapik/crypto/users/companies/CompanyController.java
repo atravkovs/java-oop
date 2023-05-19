@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.xapik.crypto.users.companies.models.CompanyQueryDto;
+import org.xapik.crypto.users.companies.models.RangeDto;
 import org.xapik.crypto.users.companies.models.entities.CompanyEntity;
 import org.xapik.crypto.users.companies.models.CompanySimpleDto;
 import org.xapik.crypto.users.companies.models.comparison.ComparisonDto;
@@ -28,8 +29,11 @@ public class CompanyController {
                                                @RequestParam(defaultValue = "20") Integer pageSize,
                                                @RequestParam(required = false) String search,
                                                @RequestParam(required = false) Boolean activeCompanies,
-                                               @RequestParam(required = false) String companyType
-
+                                               @RequestParam(required = false) String companyType,
+                                               @RequestParam(defaultValue = "0") Integer employeeFrom,
+                                               @RequestParam(defaultValue = "0") Integer employeeTo,
+                                               @RequestParam(defaultValue = "0") Integer incomeFrom,
+                                               @RequestParam(defaultValue = "0") Integer incomeTo
     ) {
         CompanyQueryDto companyQueryDto = new CompanyQueryDto();
         companyQueryDto.setSearch(search);
@@ -37,6 +41,8 @@ public class CompanyController {
         companyQueryDto.setPageNumber(page);
         companyQueryDto.setActiveCompanies(activeCompanies);
         companyQueryDto.setCompanyType(companyType);
+        companyQueryDto.setEmployeeRange(new RangeDto(employeeFrom, employeeTo));
+        companyQueryDto.setIncomeRange(new RangeDto(incomeFrom, incomeTo));
 
         return this.companyService.getCompanies(companyQueryDto);
     }

@@ -6,23 +6,9 @@
   </div>
 
   <div class="row mt-3">
-    <div class="col">
-      <input
-        type="text"
-        name="deviceName"
-        id="deviceNameInput"
-        placeholder="Search query"
-        class="form-control form-control-lg"
-        [(ngModel)]="query.search"
-        (ngModelChange)="onSearch()"
-      />
-    </div>
-  </div>
-
-  <div class="row mt-3">
     <div class="col-md-3">
       <select
-        class="form-select"
+        class="form-select form-select-lg"
         aria-label="Select company type"
         [(ngModel)]="query.companyType"
         (ngModelChange)="onSearch()"
@@ -36,7 +22,81 @@
         </option>
       </select>
     </div>
-    <div class="col-md-3 pt-2">
+
+    <div class="col-md-9">
+      <input
+        type="text"
+        name="deviceName"
+        id="deviceNameInput"
+        placeholder="Search query"
+        class="form-control form-control-lg"
+        [(ngModel)]="query.search"
+        (ngModelChange)="onSearch()"
+      />
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-md-4">
+      <div>
+        <strong>Employee count</strong>
+      </div>
+      <div class="d-flex pt-2">
+        <div class="input-group">
+          <span class="input-group-text" id="fromEmployeeCount">From</span>
+          <input
+            type="number"
+            class="form-control"
+            id="inputEmployeeCountFrom"
+            aria-describedby="fromEmployeeCount"
+            [(ngModel)]="query.employeeFrom"
+            (ngModelChange)="onSearch()"
+          />
+        </div>
+        <div class="input-group ms-2">
+          <span class="input-group-text" id="toEmployeeCount">To</span>
+          <input
+            type="number"
+            class="form-control"
+            id="inputEmployeeCountTo"
+            aria-describedby="toEmployeeCount"
+            [(ngModel)]="query.employeeTo"
+            (ngModelChange)="onSearch()"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div>
+        <strong>Income</strong>
+      </div>
+      <div class="d-flex pt-2">
+        <div class="input-group">
+          <span class="input-group-text" id="fromIncomeCount">From</span>
+          <input
+            type="number"
+            class="form-control"
+            id="inputIncomeCountFrom"
+            aria-describedby="fromIncomeCount"
+            [(ngModel)]="query.incomeFrom"
+            (ngModelChange)="onSearch()"
+          />
+        </div>
+        <div class="input-group ms-2">
+          <span class="input-group-text" id="toIncomeCount">To</span>
+          <input
+            type="number"
+            class="form-control"
+            id="inputIncomeCountTo"
+            aria-describedby="toIncomeCount"
+            [(ngModel)]="query.incomeTo"
+            (ngModelChange)="onSearch()"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 pt-24">
       <div class="form-check form-switch">
         <input
           class="form-check-input"
