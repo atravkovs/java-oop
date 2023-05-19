@@ -19,6 +19,40 @@
     </div>
   </div>
 
+  <div class="row mt-3">
+    <div class="col-md-3">
+      <select
+        class="form-select"
+        aria-label="Select company type"
+        [(ngModel)]="query.companyType"
+        (ngModelChange)="onSearch()"
+      >
+        <option value="ALL">All</option>
+        <option
+          *ngFor="let companyType of companyTypes$ | async"
+          [value]="companyType.code"
+        >
+          {{ companyType.text || companyType.code }}
+        </option>
+      </select>
+    </div>
+    <div class="col-md-3 pt-2">
+      <div class="form-check form-switch">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          role="switch"
+          [(ngModel)]="query.activeCompanies"
+          (ngModelChange)="onSearch()"
+          id="activeCompaniesSwitch"
+        />
+        <label class="form-check-label" for="activeCompaniesSwitch">
+          Active companies
+        </label>
+      </div>
+    </div>
+  </div>
+
   <ng-container *ngIf="companies$ | async; let companies">
     <div class="row mb-3 mt-3">
       <div class="col">

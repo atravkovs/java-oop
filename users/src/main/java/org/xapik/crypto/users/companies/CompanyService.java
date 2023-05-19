@@ -3,16 +3,21 @@ package org.xapik.crypto.users.companies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.xapik.crypto.users.companies.models.CompanyEntity;
+import org.xapik.crypto.users.companies.models.CompanyQueryDto;
+import org.xapik.crypto.users.companies.models.entities.CompanyEntity;
 import org.xapik.crypto.users.companies.models.CompanyNotFoundException;
 import org.xapik.crypto.users.companies.models.CompanySimpleDto;
 import org.xapik.crypto.users.companies.models.comparison.CompanyDatasetDto;
 import org.xapik.crypto.users.companies.models.comparison.ComparisonDto;
-import org.xapik.crypto.users.companies.models.comparison.YearDataDto;
+import org.xapik.crypto.users.companies.models.entities.CompanyTypeEntity;
 import org.xapik.crypto.users.comparison.DatasetType;
 import org.xapik.crypto.users.comparison.GenerateDatasetFactory;
 import org.xapik.crypto.users.comparison.IGenerateDataset;
+
+import static org.springframework.data.jpa.domain.Specification.where;
+import static org.xapik.crypto.users.companies.CompanyRepository.Specs.*;
 
 import java.util.List;
 
@@ -21,25 +26,38 @@ public class CompanyService {
 
     private final CompanyRepository companyRepository;
     private final GenerateDatasetFactory datasetFactory;
+    private final CompanyTypeRepository companyTypeRepository;
 
     @Autowired
-    public CompanyService(
-            CompanyRepository companyRepository,
-            GenerateDatasetFactory datasetFactory
-    ) {
+    public CompanyService(CompanyRepository companyRepository, GenerateDatasetFactory datasetFactory, CompanyTypeRepository companyTypeRepository) {
         this.companyRepository = companyRepository;
         this.datasetFactory = datasetFactory;
+        this.companyTypeRepository = companyTypeRepository;
     }
 
-    public Page<CompanySimpleDto> getCompanies(int pageNumber, int pageSize, String search) {
-        var pageable = Pageable.ofSize(pageSize).withPage(pageNumber);
-        var likeSearch = '%' + search + '%';
+    public Page<CompanySimpleDto> getCompanies(CompanyQueryDto companyQuery) {
+        var pageable = Pageable.ofSize(companyQuery.getPageSize()).withPage(companyQuery.getPageNumber());
 
-        if (search == null) {
-            return this.companyRepository.findAll(pageable).map(CompanySimpleDto::fromCompanyEntity);
+        Specification<CompanyEntity> query = where(null);
+
+        if (companyQuery.getSearch() != null) {
+            query = query.and(
+                    containsRegcode(companyQuery.getSearch())
+                            .or(containsName(companyQuery.getSearch()))
+            );
         }
 
-        return this.companyRepository.findAllByNameIsLike(pageable, likeSearch).map(CompanySimpleDto::fromCompanyEntity);
+        if (companyQuery.getActiveCompanies() != null && companyQuery.getActiveCompanies()) {
+            query = query.and(isActive(true));
+        }
+
+        if (companyQuery.getCompanyType() != null && !companyQuery.getCompanyType().equals("ALL")) {
+            query = query.and(hasCompanyType(companyQuery.getCompanyType()));
+        }
+
+        Page<CompanyEntity> companies = this.companyRepository.findAll(query, pageable);
+
+        return companies.map(CompanySimpleDto::fromCompanyEntity);
     }
 
     public CompanyEntity getCompanyDetails(Long regcode) {
@@ -47,15 +65,17 @@ public class CompanyService {
     }
 
     public ComparisonDto compareCompanies(List<Long> regcodes) {
-        List<CompanyEntity> companies = regcodes.stream()
-                .map(this::getCompanyDetails)
-                .toList();
+        List<CompanyEntity> companies = regcodes.stream().map(this::getCompanyDetails).toList();
 
         ComparisonDto comparisonDto = new ComparisonDto();
         comparisonDto.setEmployeeCount(mapCompaniesToDataset(companies, DatasetType.EMPLOYEE_COUNT));
         comparisonDto.setIncomeBeforeTaxes(mapCompaniesToDataset(companies, DatasetType.INCOME_BEFORE_TAXES));
 
         return comparisonDto;
+    }
+
+    public List<CompanyTypeEntity> getCompanyTypes() {
+        return companyTypeRepository.findAll();
     }
 
     private List<CompanyDatasetDto> mapCompaniesToDataset(List<CompanyEntity> companyEntities, DatasetType datasetType) {
