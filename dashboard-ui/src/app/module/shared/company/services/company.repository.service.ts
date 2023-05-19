@@ -25,6 +25,12 @@ export class CompanyRepositoryService {
     return this.http.get<Company>(`/api/users/companies/${regcode}`);
   }
 
+  getCompanyTop(category: string, year: number): Observable<Company[]> {
+    return this.http.get<Company[]>(
+      `/api/users/companies/top/${category}/${year}`
+    );
+  }
+
   compareCompanies(regcodes: number[]): Observable<ComparisonDatasets> {
     return this.http.get<ComparisonDatasets>(`/api/users/companies/compare`, {
       params: {

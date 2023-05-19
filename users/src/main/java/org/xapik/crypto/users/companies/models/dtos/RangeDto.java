@@ -1,4 +1,4 @@
-package org.xapik.crypto.users.companies.models;
+package org.xapik.crypto.users.companies.models.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

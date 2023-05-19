@@ -1,0 +1,56 @@
+<div class="container pt-5">
+  <div class="d-flex justify-content-center">
+    <h4>Top By</h4>
+    <div
+      class="ms-2 btn-group"
+      role="group"
+      aria-label="Basic radio toggle button group"
+    >
+      <input
+        type="radio"
+        class="btn-check"
+        name="btnradio"
+        id="btnradio1"
+        autocomplete="off"
+        value="employee"
+        [(ngModel)]="category"
+        checked
+      />
+      <label class="btn btn-outline-primary" for="btnradio1">Employee Count</label>
+
+      <input
+        type="radio"
+        class="btn-check"
+        name="btnradio"
+        id="btnradio2"
+        value="income"
+        [(ngModel)]="category"
+        autocomplete="off"
+      />
+      <label class="btn btn-outline-primary" for="btnradio2">Income</label>
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <ul class="nav nav-tabs">
+      <li class="nav-item" *ngFor="let year of [2021, 2020, 2019, 2018]">
+        <a
+          class="nav-link"
+          [class.active]="activeYear === year"
+          [attr.aria-current]="activeYear === year ? 'page' : undefined"
+          (click)="openYear(year)"
+        >
+          {{ year }}
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="p-4 bg-white border" *ngIf="activeYear">
+    <h4>Top Companies by {{ category === 'employee' ? 'Employee Count' : 'Income' }} in {{ activeYear }}</h4>
+    <app-top-companies
+      [category]="category"
+      [year]="activeYear"
+    ></app-top-companies>
+  </div>
+</div>

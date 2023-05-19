@@ -3,10 +3,10 @@ package org.xapik.crypto.users.companies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-import org.xapik.crypto.users.companies.models.CompanyQueryDto;
-import org.xapik.crypto.users.companies.models.RangeDto;
+import org.xapik.crypto.users.companies.models.dtos.CompanyQueryDto;
+import org.xapik.crypto.users.companies.models.dtos.RangeDto;
 import org.xapik.crypto.users.companies.models.entities.CompanyEntity;
-import org.xapik.crypto.users.companies.models.CompanySimpleDto;
+import org.xapik.crypto.users.companies.models.dtos.CompanySimpleDto;
 import org.xapik.crypto.users.companies.models.comparison.ComparisonDto;
 import org.xapik.crypto.users.companies.models.entities.CompanyTypeEntity;
 
@@ -62,6 +62,11 @@ public class CompanyController {
     @GetMapping("/types")
     public List<CompanyTypeEntity> getCompanyTypes() {
         return this.companyService.getCompanyTypes();
+    }
+
+    @GetMapping("/top/{category}/{year}")
+    public List<CompanyEntity> getTopCompanies(@PathVariable() String category, @PathVariable() Long year) {
+        return this.companyService.getTopCompanies(category, year);
     }
 
 }
