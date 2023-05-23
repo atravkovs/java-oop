@@ -1,4 +1,4 @@
-# Statistics App
+# Statistics App 1
 
  - "dashboard-ui" - Angular Front-End for the System
  - "docker-compose.yml" - Docker Compose configuration to start databases
