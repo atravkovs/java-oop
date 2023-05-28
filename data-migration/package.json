@@ -1,0 +1,21 @@
+{
+  "name": "imt5-parser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "register": "node parsers/register.js",
+    "balance": "node parsers/balance.js",
+    "cash": "node parsers/cash.js",
+    "tmp": "node parsers/tmp.js",
+    "income": "node parsers/income.js",
+    "fin": "node parsers/financial_statements.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv": "^6.2.12",
+    "mysql": "^2.18.1"
+  }
+}
