@@ -2,7 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Page } from '../../models/page.model';
-import { Company } from '../models/company.model';
+import {
+  Company,
+  CompanySet,
+  MinimalCompanySet,
+} from '../models/company.model';
 import { ComparisonDatasets } from '../models/comparison.model';
 import { CompanyType } from '../models/company-type.model';
 
@@ -41,5 +45,41 @@ export class CompanyRepositoryService {
 
   getCompanyTypes(): Observable<CompanyType[]> {
     return this.http.get<CompanyType[]>(`/api/users/companies/types`);
+  }
+
+  getCompanySetPage(query: { page?: number }): Observable<Page<CompanySet>> {
+    return this.http.get<Page<CompanySet>>(`/api/users/companies/sets`, {
+      params: query,
+    });
+  }
+
+  getAllCompanySets(): Observable<MinimalCompanySet[]> {
+    return this.http.get<MinimalCompanySet[]>(
+      `/api/users/companies/sets/fullList`
+    );
+  }
+
+  removeCompanyFromSet(setId: number, regCode: number): Observable<CompanySet> {
+    return this.http.delete<CompanySet>(
+      `/api/users/companies/sets/${setId}/${regCode}`
+    );
+  }
+
+  deleteCompanySet(setId: number): Observable<Object> {
+    return this.http.delete(`/api/users/companies/sets/${setId}`);
+  }
+
+  addCompanyToSet(setId: number, regCode: number): Observable<CompanySet> {
+    return this.http.put<CompanySet>(`/api/users/companies/sets/addCompany`, {
+      setId,
+      regCode,
+    });
+  }
+
+  createCompanySet(name: string, regCodes: number[]): Observable<CompanySet> {
+    return this.http.post<CompanySet>(`/api/users/companies/sets/create`, {
+      name,
+      regCodes,
+    });
   }
 }

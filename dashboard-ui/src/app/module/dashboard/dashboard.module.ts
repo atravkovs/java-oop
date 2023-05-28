@@ -18,6 +18,8 @@ import { ComparisonComponent } from './page/comparison/comparison.component';
 import { TopsComponent } from './page/tops/tops.component';
 import { TopCompaniesComponent } from './components/top-companies/top-companies.component';
 import { CountryMapComponent } from './components/country-map/country-map.component';
+import { CompanySetsComponent } from './components/company-sets/company-sets.component';
+import { CompanySetRowComponent } from './components/company-set-row/company-set-row.component';
 
 const routes: Routes = [
   {
@@ -41,6 +43,10 @@ const routes: Routes = [
     path: 'tops',
     component: TopsComponent,
   },
+  {
+    path: 'sets',
+    component: CompanySetsComponent,
+  }
 ];
 
 @NgModule({
@@ -56,6 +62,8 @@ const routes: Routes = [
     TopsComponent,
     TopCompaniesComponent,
     CountryMapComponent,
+    CompanySetsComponent,
+    CompanySetRowComponent,
   ],
   imports: [
     UserModule,

@@ -1,6 +1,7 @@
 package org.xapik.crypto.users.companies.models.entities;
 
 import lombok.Data;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -40,6 +41,7 @@ public class CompanyEntity {
     private Integer postalIndex;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "regcode")
+    @BatchSize(size = 999)
     private Set<FinancialStatementEntity> financialStatements;
 
 }

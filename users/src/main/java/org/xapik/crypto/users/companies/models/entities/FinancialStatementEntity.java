@@ -1,6 +1,7 @@
 package org.xapik.crypto.users.companies.models.entities;
 
 import lombok.Data;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -28,12 +29,15 @@ public class FinancialStatementEntity {
     private String currency;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "statementId")
+    @BatchSize(size = 999)
     private Set<IncomeStatementEntity> incomeStatementEntity;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "statementId")
+    @BatchSize(size = 999)
     private Set<BalanceStatementEntity> balanceStatementEntity;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "statementId")
+    @BatchSize(size = 999)
     private Set<CashFlowStatementEntity> cashFlowStatementEntity;
 
 }

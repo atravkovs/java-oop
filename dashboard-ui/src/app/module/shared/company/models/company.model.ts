@@ -115,3 +115,12 @@ export interface CashFlowStatement {
   atBeginningOfYear: number | null;
   atEndOfYear: number | null;
 }
+
+export interface MinimalCompanySet {
+  setId: number;
+  name: string;
+}
+
+export interface CompanySet extends MinimalCompanySet {
+  companies: Company[];
+}
