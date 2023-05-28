@@ -93,6 +93,10 @@ public interface CompanyRepository extends JpaRepository<CompanyEntity, Long>, J
                 );
             };
         }
+
+        static Specification<CompanyEntity> hasPostIndexIn(String firstDigits) {
+            return (company, cq, cb) -> cb.like(company.get("postalIndex").as(String.class), firstDigits + "%");
+        }
     }
 
 }

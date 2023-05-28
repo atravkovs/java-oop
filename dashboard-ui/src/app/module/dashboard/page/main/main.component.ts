@@ -17,6 +17,7 @@ export class MainComponent implements OnInit {
   companyTypes$: Observable<CompanyType[]> | null = null;
 
   isLoading: boolean = true;
+  showMap: boolean = false;
 
   query = {
     page: 0,
@@ -28,6 +29,7 @@ export class MainComponent implements OnInit {
     employeeTo: 0,
     incomeFrom: 0,
     incomeTo: 0,
+    postIndexes: new Array(),
   };
 
   refresh$: Subject<string> = new Subject();
@@ -57,6 +59,7 @@ export class MainComponent implements OnInit {
   }
 
   onSearch(): void {
+    this.query.postIndexes = this.getPostIndexes();
     this.query.page = 0;
     this.isLoading = true;
     this.refresh$.next('');
@@ -84,5 +87,18 @@ export class MainComponent implements OnInit {
     }
 
     return Array(n);
+  }
+
+  /**
+   * Gets selected values of post index checkboxes if map is shown
+   */
+  getPostIndexes(): Array<String> {
+    if (!this.showMap) {return new Array();}
+    let selected = new Array();
+    let elements = document.querySelectorAll('.post-index-select:checked');
+    for (let i = 0; i < elements.length; i++) {
+      selected.push((elements[i] as HTMLSelectElement).value);
+    }
+    return selected;
   }
 }

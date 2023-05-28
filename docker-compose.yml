@@ -7,6 +7,7 @@ networks:
 services:
   users-ui:
     image: 506064558446.dkr.ecr.eu-north-1.amazonaws.com/imt-repository-ui:3cc9fb8a021ae3f84625a6f7941d9f5a41a45364
+    build: ./
     depends_on:
       - users
     networks:
@@ -16,6 +17,7 @@ services:
   users:
     image: 506064558446.dkr.ecr.eu-north-1.amazonaws.com/imt-repository:3cc9fb8a021ae3f84625a6f7941d9f5a41a45364
     env_file: ./users/.env
+    build: ./
     networks:
       - usernet
     ports:

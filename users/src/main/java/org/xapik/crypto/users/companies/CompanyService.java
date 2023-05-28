@@ -68,6 +68,15 @@ public class CompanyService {
             query = query.and(hasIncomeInRange(incomeRange));
         }
 
+        var postIndexes = companyQuery.getPostIndexes();
+        if (postIndexes != null && !postIndexes.isEmpty()) {
+            Specification<CompanyEntity> subquery = where(null);
+            for (String postIndex : postIndexes) {
+                subquery = subquery.or(hasPostIndexIn(postIndex));
+            }
+            query = query.and(subquery);
+        }
+
         Page<CompanyEntity> companies = this.companyRepository.findAll(query, pageable);
 
         return companies.map(CompanySimpleDto::fromCompanyEntity);
