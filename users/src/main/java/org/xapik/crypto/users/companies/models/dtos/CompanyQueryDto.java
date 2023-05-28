@@ -2,6 +2,8 @@ package org.xapik.crypto.users.companies.models.dtos;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class CompanyQueryDto {
 
@@ -13,5 +15,6 @@ public class CompanyQueryDto {
     private String companyType;
     private RangeDto employeeRange;
     private RangeDto incomeRange;
+    private List<String> postIndexes;
 
 }

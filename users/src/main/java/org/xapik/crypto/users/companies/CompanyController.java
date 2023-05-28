@@ -11,6 +11,7 @@ import org.xapik.crypto.users.companies.models.comparison.ComparisonDto;
 import org.xapik.crypto.users.companies.models.entities.CompanyTypeEntity;
 
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin
 @RestController
@@ -34,7 +35,8 @@ public class CompanyController {
                                                @RequestParam(defaultValue = "0") Integer employeeFrom,
                                                @RequestParam(defaultValue = "0") Integer employeeTo,
                                                @RequestParam(defaultValue = "0") Integer incomeFrom,
-                                               @RequestParam(defaultValue = "0") Integer incomeTo
+                                               @RequestParam(defaultValue = "0") Integer incomeTo,
+                                               @RequestParam(required = false) List<String> postIndexes
     ) {
         CompanyQueryDto companyQueryDto = new CompanyQueryDto();
         companyQueryDto.setSearch(search);
@@ -45,6 +47,7 @@ public class CompanyController {
         companyQueryDto.setHasStats(hasStats);
         companyQueryDto.setEmployeeRange(new RangeDto(employeeFrom, employeeTo));
         companyQueryDto.setIncomeRange(new RangeDto(incomeFrom, incomeTo));
+        companyQueryDto.setPostIndexes(postIndexes);
 
         return this.companyService.getCompanies(companyQueryDto);
     }

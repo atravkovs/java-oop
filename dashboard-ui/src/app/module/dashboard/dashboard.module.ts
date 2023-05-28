@@ -17,6 +17,7 @@ import { CompanyRowComponent } from './components/company-row/company-row.compon
 import { ComparisonComponent } from './page/comparison/comparison.component';
 import { TopsComponent } from './page/tops/tops.component';
 import { TopCompaniesComponent } from './components/top-companies/top-companies.component';
+import { CountryMapComponent } from './components/country-map/country-map.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,7 @@ const routes: Routes = [
     ComparisonComponent,
     TopsComponent,
     TopCompaniesComponent,
+    CountryMapComponent,
   ],
   imports: [
     UserModule,
