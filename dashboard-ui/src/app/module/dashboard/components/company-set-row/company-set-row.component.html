@@ -1,0 +1,26 @@
+<app-card *ngIf="companySet">
+  <div class="d-flex flex-column">
+    <div class="d-flex justify-content-between">
+      <div class="ms-3 pt-25 py-1 name-font" (click)="toggleOpen()">
+        {{ companySet.name }}
+      </div>
+      <div class="d-flex">
+        <div class="pt-2 mx-3">
+          <i class="bi text-primary click bi-dash-square-fill" (click)="deleteCompanySet(companySet.setId)"></i>
+        </div>
+        <div class="ms-auto pt-2">
+          <i class="bi text-primary click" [ngClass]="[
+            isSetSelected(companySet) ? 'bi-bar-chart-fill' : 'bi-bar-chart'
+          ]" (click)="selectSet(companySet)"></i>
+        </div>
+      </div>
+    </div>
+    <app-card *ngIf="isOpen" class="mb-2">
+      <div class="row my-2" *ngFor="let company of companySet.companies">
+        <div class="col">
+          <app-company-row [company]="company" [showDeleteButton]="true" (deleteButtonPress)="removeCompanyFromSet($event)"></app-company-row>
+        </div>
+      </div>
+    </app-card>
+  </div>
+</app-card>

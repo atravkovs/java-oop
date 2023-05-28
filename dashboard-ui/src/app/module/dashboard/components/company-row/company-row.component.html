@@ -10,15 +10,18 @@
         </a>
       </div>
     </div>
-    <div *ngIf="company.financialStatementCount > 0">
-      <div class="ms-auto pt-2">
-        <i
-          (click)="toggleSelectForComparison()"
-          class="bi text-primary click"
-          [ngClass]="[
+    <div class="d-flex">
+      <div *ngIf="showDeleteButton">
+        <div class="ms-auto pt-2 mx-3">
+          <i (click)="deleteCompany()" class="bi text-primary click bi-dash-square-fill"></i>
+        </div>
+      </div>
+      <div *ngIf="company.financialStatementCount > 0">
+        <div class="ms-auto pt-2">
+          <i (click)="toggleSelectForComparison()" class="bi text-primary click" [ngClass]="[
             selectedForComparison ? 'bi-bar-chart-fill' : 'bi-bar-chart'
-          ]"
-        ></i>
+          ]"></i>
+        </div>
       </div>
     </div>
   </div>

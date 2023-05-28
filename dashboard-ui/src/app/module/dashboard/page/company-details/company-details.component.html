@@ -6,6 +6,31 @@
       </div>
     </div>
 
+    <form [formGroup]="companySetForm" (submit)="addCompanyToSet()">
+      <div class="col-md-3 mb-3">
+        <label for="setInput" class="form-label">Company Set</label>
+        <select id="setInput" class="form-select form-select-lg" aria-label="Select company set" formControlName="setId">
+          <option *ngFor="let companySet of sets$ | async" [value]="companySet.setId">
+            {{ companySet.setId + " " + companySet.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div *ngIf="!!successMessage" class="alert alert-success d-flex align-items-center mb-2" role="alert">
+        {{ successMessage }}
+      </div>
+
+      <div class="d-grid">
+        <button type="submit" [disabled]="!companySetForm.valid" class="btn btn-primary btn-lg">
+          Add this company to selected set
+        </button>
+      </div>
+    </form>
+
     <div class="row mt-3">
       <div class="col-md-6">
         <ul class="list-group">
